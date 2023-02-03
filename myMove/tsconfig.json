@@ -21,6 +21,6 @@
 		"incremental": true,
 		"baseUrl": "src/"
 	},
-	"include": ["**/*.ts", "**/*.tsx"],
+	"include": ["**/*.ts", "**/*.tsx", "**/**/*.ts", "**/**/*.tsx"],
 	"exclude": ["node_modules"]
 }

@@ -1,6 +1,6 @@
 /*
 | Developed by Starton
-| Filename : index.js
+| Filename : .eslintrc.js
 */
 
 module.exports = {
@@ -35,7 +35,8 @@ module.exports = {
 			],
 			plugins: ['@typescript-eslint'],
 			parserOptions: {
-				project: ['./tsconfig.json'], // Specify it only for TypeScript files
+				project: ['tsconfig.json'], // Specify it only for TypeScript files
+				tsconfigRootDir: __dirname,
 			},
 			rules: {
 				'@typescript-eslint/ban-ts-comment': 'off',

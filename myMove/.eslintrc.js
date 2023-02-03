@@ -1,4 +1,13 @@
+/*
+| Developed by Starton
+| Filename : index.js
+*/
+
 module.exports = {
+	env: {
+		node: true,
+	},
+	root: true,
 	extends: [
 		'eslint:recommended',
 		'plugin:import/recommended',
@@ -21,7 +30,8 @@ module.exports = {
 			],
 			plugins: ['@typescript-eslint'],
 			parserOptions: {
-				project: ['./tsconfig.json'], // Specify it only for TypeScript files
+				project: ['tsconfig.json'], // Specify it only for TypeScript files
+				tsconfigRootDir: __dirname,
 			},
 			rules: {
 				'@typescript-eslint/ban-ts-comment': 'off',
@@ -32,7 +42,7 @@ module.exports = {
 				'@typescript-eslint/no-misused-promises': 'off',
 				'@typescript-eslint/no-unsafe-argument': 'off',
 				'@typescript-eslint/unbound-method': 'off',
-				"@typescript-eslint/no-unused-vars": ["error", { "ignoreRestSiblings": true }],
+				'@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true }],
 				'@typescript-eslint/no-unsafe-call': 'off',
 			},
 		},
@@ -74,21 +84,24 @@ module.exports = {
 		'react/no-namespace': 'off',
 		'react/react-in-jsx-scope': 'off',
 		'react-hooks/exhaustive-deps': 'warn',
-		'prettier/prettier': ['error', {
-			printWidth: 120,
-			tabWidth: 4,
-			useTabs: true,
-			semi: false,
-			singleQuote: true,
-			quoteProps: 'as-needed',
-			jsxSingleQuote: false,
-			trailingComma: 'all',
-			bracketSpacing: true,
-			jsxBracketSameLine: false,
-			arrowParens: 'always',
-			proseWrap: 'preserve',
-			htmlWhitespaceSensitivity: 'css',
-			endOfLine: 'lf',
-		}],
+		'prettier/prettier': [
+			'error',
+			{
+				printWidth: 120,
+				tabWidth: 4,
+				useTabs: true,
+				semi: false,
+				singleQuote: true,
+				quoteProps: 'as-needed',
+				jsxSingleQuote: false,
+				trailingComma: 'all',
+				bracketSpacing: true,
+				jsxBracketSameLine: false,
+				arrowParens: 'always',
+				proseWrap: 'preserve',
+				htmlWhitespaceSensitivity: 'css',
+				endOfLine: 'lf',
+			},
+		],
 	},
 }
