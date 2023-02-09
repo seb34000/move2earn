@@ -28,8 +28,7 @@ function App(): JSX.Element {
 
 	const getStep = useCallback(() => {
 		HKgetStepFromToday(setHKstep)
-		console.log('HKstep', HKstep)
-	}, [HKstep])
+	}, [])
 
 	return (
 		<SafeAreaView

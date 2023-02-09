@@ -12,7 +12,14 @@ export const HKInit = (setResult: (is: boolean) => void) => {
 	try {
 		AppleHealthKit.initHealthKit(HKpermission, (err, results) => {
 			if (err) {
-				console.log('error initializing Healthkit: ', err)
+import AppleHealthKit, { HealthKitPermissions } from 'react-native-health'
+
+export const HKpermission = {
+	permissions: {
+		read: [AppleHealthKit.Constants.Permissions.Steps, AppleHealthKit.Constants.Permissions.StepCount],
+		write: [AppleHealthKit.Constants.Permissions.Steps, AppleHealthKit.Constants.Permissions.StepCount],
+	},
+} as HealthKitPermissions
 				setResult(false)
 			} else {
 				console.log('Healthkit initialized: ', results)
@@ -20,7 +27,7 @@ export const HKInit = (setResult: (is: boolean) => void) => {
 			}
 		})
 	} catch (error) {
-		console.log(JSON.stringify(error, null, 2))
+		console.error('error initializing Healthkit: ', error)
 		setResult(false)
 	}
 }

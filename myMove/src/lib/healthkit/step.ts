@@ -8,14 +8,14 @@ import AppleHealthKit, { HealthInputOptions } from 'react-native-health'
 
 const HKoptions: HealthInputOptions = {
 	date: new Date().toISOString(),
-	includeManuallyAdded: true, // set to true if you want to include manually added health data in results
+	includeManuallyAdded: true,
 }
 
 export const HKgetStepFromToday = (setResult: (res: number) => void) => {
 	try {
 		AppleHealthKit.getStepCount(HKoptions, (err, results) => {
 			if (err) {
-				console.log('error getting steps from today: ', err)
+				console.error('error getting steps from today: ', err)
 				setResult(-1)
 			} else {
 				console.log('steps from today: ', results)
@@ -23,7 +23,7 @@ export const HKgetStepFromToday = (setResult: (res: number) => void) => {
 			}
 		})
 	} catch (error) {
-		console.log(JSON.stringify(error, null, 2))
+		console.error('error getting steps from today: ', error)
 		setResult(-1)
 	}
 }
