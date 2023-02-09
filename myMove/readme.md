@@ -1,7 +1,7 @@
 # Move2Earn App - by Starton
 
 ## Before you start
- - [Complete API Move2earn tutorial](https://awesomeopensource.com/project/elangosundar/awesome-README-templates)
+ - [Complete API Move2earn tutorial](https://github.com/seb34000/move2earn/blob/main/my-move-api/README.md)
 
 ## Launching the app
 ### Install dependencies
@@ -18,7 +18,7 @@
 
 ## Tutorial
 ### Setup the project
-- [Complete API Move2earn tutorial](https://awesomeopensource.com/project/elangosundar/awesome-README-templates)
+- [Complete API Move2earn tutorial](https://github.com/seb34000/move2earn/blob/main/my-move-api/README.md)
 
 - [Create a new react native project without expo in this exemple we use typescipt but it's not mandatory](https://reactnative.dev/docs/environment-setup)
 

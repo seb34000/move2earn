@@ -11,8 +11,8 @@ provider:
   runtime: nodejs14.x
 
 functions:
-  hello:
-    handler: handler.hello
+  claim:
+    handler: src/handler.claim
     events:
       - httpApi:
           path: /

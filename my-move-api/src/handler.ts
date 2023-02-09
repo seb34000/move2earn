@@ -7,7 +7,7 @@
 import { eventType } from './eventType'
 
 module.exports = {
-	hello(event: eventType): { statusCode: number; body: string } {
+	claim(event: eventType): { statusCode: number; body: string } {
 		return {
 			statusCode: 200,
 			body: JSON.stringify(
