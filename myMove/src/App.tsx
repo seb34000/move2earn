@@ -4,46 +4,61 @@
 | Author : Sebastien Phelip (sebastien@starton.io)
 */
 
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 // eslint-disable-next-line import/namespace
-import { SafeAreaView, StatusBar, StyleSheet, useColorScheme, Button } from 'react-native'
-import { Colors } from 'react-native/Libraries/NewAppScreen'
+import { SafeAreaView, ActivityIndicator } from 'react-native'
+
+import Input from './component/input/Input'
+import Button from './component/button/Button'
 
 import { HKInit } from './lib/healthkit/init'
 import { HKgetStepFromToday } from './lib/healthkit/step'
+import { getColors } from './lib/asset/colors'
+
+import WalletLogo from './lib/logo/WalletLogo'
 
 function App(): JSX.Element {
-	const isDarkMode = useColorScheme() === 'dark'
+	const colors = getColors()
 
 	const [HKauth, setHKauth] = useState(false)
 	const [HKstep, setHKstep] = useState(-1)
 
+	const [address, setAddress] = useState('')
+
 	useEffect(() => {
 		HKInit(setHKauth)
-		getStep()
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [HKauth])
+	}, [])
 
-	const getStep = () => {
-		if (HKauth) {
-			console.log('getStep')
-			HKgetStepFromToday(setHKstep)
-			console.log('HKstep', HKstep)
-		}
-	}
-
-	const backgroundStyle = {
-		backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-	}
+	const getStep = useCallback(() => {
+		console.log('getStep')
+		HKgetStepFromToday(setHKstep)
+		console.log('HKstep', HKstep)
+	}, [HKstep])
 
 	return (
-		<SafeAreaView style={backgroundStyle}>
-			<StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-			<Button title="Update Step Count" onPress={getStep} />
+		<SafeAreaView
+			style={{
+				backgroundColor: colors.background,
+				justifyContent: 'center',
+				alignItems: 'center',
+				flex: 1,
+			}}
+		>
+			{HKauth === true ? (
+				<>
+					<Button title="Get step for today" onPress={getStep} />
+					<Input
+						placeholder="Your wallet address"
+						onChangeText={setAddress}
+						value={address}
+						icon={<WalletLogo />}
+					/>
+				</>
+			) : (
+				<ActivityIndicator size="large" color="#0000ff" />
+			)}
 		</SafeAreaView>
 	)
 }
-
-// const styles = StyleSheet.create({})
 
 export default App
