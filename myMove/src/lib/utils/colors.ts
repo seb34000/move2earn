@@ -4,7 +4,6 @@
 | Author : Sebastien Phelip (sebastien@starton.io)
 */
 
-// eslint-disable-next-line import/namespace
 import { useColorScheme } from 'react-native'
 
 export const getColors = () => {

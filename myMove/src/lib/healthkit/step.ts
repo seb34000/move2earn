@@ -11,7 +11,6 @@ const HKoptions: HealthInputOptions = {
 	includeManuallyAdded: true, // set to true if you want to include manually added health data in results
 }
 
-// eslint-disable-next-line @typescript-eslint/require-await
 export const HKgetStepFromToday = (setResult: (res: number) => void) => {
 	try {
 		AppleHealthKit.getStepCount(HKoptions, (err, results) => {

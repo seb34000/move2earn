@@ -8,32 +8,27 @@ import React from 'react'
 
 import { TextInput, View, StyleSheet } from 'react-native'
 
-import { getColors } from '../../lib/asset/colors'
+import { getColors } from '../../lib/utils/colors'
 import { customInputProps } from './typeInput'
 
-export default function Input({ placeholder, onChangeText, value, icon }: customInputProps) {
-	const colors = getColors()
+export const Input = React.forwardRef<TextInput, customInputProps>((props, ref) => {
+	const inputColor = getColors().input
 	return (
 		<View
-			style={[
-				styles.wrapperCustom,
-				{
-					backgroundColor: colors.input.background,
-					shadowColor: colors.shadow,
-				},
-			]}
+			ref={ref}
+			style={[styles.wrapperCustom, { backgroundColor: inputColor.background, shadowColor: getColors().shadow }]}
 		>
-			{icon}
+			{props.icon}
 			<TextInput
-				style={[styles.input]}
 				maxLength={42}
-				placeholder={placeholder}
-				onChangeText={onChangeText}
-				value={value}
+				placeholder={props.placeholder}
+				onChangeText={props.onChangeText}
+				value={props.value}
+				style={{ width: '90%', padding: 5 }}
 			/>
 		</View>
 	)
-}
+})
 
 const styles = StyleSheet.create({
 	wrapperCustom: {
@@ -50,7 +45,6 @@ const styles = StyleSheet.create({
 		shadowOpacity: 0.22,
 		shadowRadius: 2.22,
 		elevation: 3,
+		alignItems: 'center',
 	},
-
-	input: {},
 })

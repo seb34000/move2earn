@@ -16,6 +16,9 @@ module.exports = {
 		'prettier',
 	],
 	plugins: ['prettier', 'import', 'react', 'react-hooks'],
+	settings: {
+		'import/ignore': ['react-native'],
+	},
 	overrides: [
 		{
 			parser: '@typescript-eslint/parser',

@@ -8,7 +8,6 @@ import AppleHealthKit from 'react-native-health'
 
 import { HKpermission } from './permission'
 
-// eslint-disable-next-line @typescript-eslint/require-await
 export const HKInit = (setResult: (is: boolean) => void) => {
 	try {
 		AppleHealthKit.initHealthKit(HKpermission, (err, results) => {

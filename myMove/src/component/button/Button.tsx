@@ -6,26 +6,25 @@
 
 import React from 'react'
 
-// eslint-disable-next-line import/namespace
 import { Pressable, StyleSheet, Text } from 'react-native'
 
-import { getColors } from '../../lib/asset/colors'
+import { getColors } from '../../lib/utils/colors'
 import { customButtonProps } from './typeButton'
 
 export default function Button({ title, onPress }: customButtonProps) {
-	const colors = getColors()
+	const { background, pressed } = getColors().button
 	return (
 		<Pressable
-			style={({ pressed }) => [
+			style={(_props) => [
 				{
-					backgroundColor: pressed ? colors.button.pressed : colors.button.background,
-					shadowColor: colors.shadow,
+					backgroundColor: _props.pressed ? pressed : background,
+					shadowColor: getColors().shadow,
 				},
 				styles.wrapperCustom,
 			]}
 			onPress={onPress}
 		>
-			<Text style={[styles.text, { color: colors.text, textShadowColor: colors.shadow }]}>{title}</Text>
+			<Text style={[{ color: getColors().text, textShadowColor: getColors().shadow }, styles.text]}>{title}</Text>
 		</Pressable>
 	)
 }
@@ -51,6 +50,6 @@ const styles = StyleSheet.create({
 			width: 0,
 			height: 0,
 		},
-		textShadowRadius: 1,
+		textShadowRadius: 0.5,
 	},
 })
