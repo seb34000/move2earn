@@ -1,0 +1,25 @@
+org: seb34z
+app: typescript-http-api-starton-my-move
+service: typescript-http-api-starton-my-move
+frameworkVersion: "3"
+
+provider:
+    name: aws
+    runtime: nodejs14.x
+    apiGateway:
+        apiKeys:
+            - move2earnAPIKey"
+
+functions:
+    claim:
+        handler: src/claim.handler
+        events:
+            - http:
+                  path: /
+                  method: get
+                  private: true
+
+plugins:
+    - serverless-plugin-typescript
+    - serverless-dotenv-plugin
+    - serverless-offline

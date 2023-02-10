@@ -21,6 +21,6 @@
 		"incremental": true,
 		"baseUrl": "src/"
 	},
-	"include": ["**/*.ts", "**/*.tsx", "**/**/*.ts", "**/**/*.tsx"],
-	"exclude": ["node_modules"]
+	"include": ["**/*.ts", "**/*.tsx"],
+	"exclude": ["node_modules", "../typescript-http-api-starton-my-move"]
 }

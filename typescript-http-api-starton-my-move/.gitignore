@@ -5,4 +5,8 @@ jspm_packages
 # Serverless directories
 .serverless
 
-src/.tsbuildinfo
+# secrets
+.env
+
+# Build
+.build

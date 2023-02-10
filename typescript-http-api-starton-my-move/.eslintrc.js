@@ -1,24 +1,15 @@
-/*
-| Developed by Starton
-| Filename : .eslintrc.js
-*/
-
 module.exports = {
 	env: {
-		// browser: true,
-		// es2021: true,
+		browser: true,
+		es2021: true,
 		node: true,
 	},
-	root: true,
 	extends: [
 		'eslint:recommended',
 		'plugin:import/recommended',
 		'plugin:import/typescript',
-		// '@typescript-eslint/parser',
 		'plugin:prettier/recommended',
 		'prettier',
-		'plugin:react/recommended',
-		'plugin:react-hooks/recommended',
 	],
 	plugins: ['prettier', 'import', 'react', 'react-hooks'],
 	overrides: [
@@ -35,8 +26,7 @@ module.exports = {
 			],
 			plugins: ['@typescript-eslint'],
 			parserOptions: {
-				project: ['tsconfig.json'], // Specify it only for TypeScript files
-				tsconfigRootDir: __dirname,
+				project: ['./tsconfig.json'], // Specify it only for TypeScript files
 			},
 			rules: {
 				'@typescript-eslint/ban-ts-comment': 'off',
