@@ -12,34 +12,37 @@ import userCheck from './utils/userCheck'
 
 export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 	try {
-		const { walletAddress, stepCount } = JSON.parse(JSON.stringify(event.headers))
-
+		console.log(event.headers)
+		const { walletaddress, deviceid, stepcount } = JSON.parse(JSON.stringify(event.headers))
 		// const user = await userCheck(walletAddress, 'd2c6a5b9-245c-4895-8b84-3d84cdb6819f', stepCount)
-		const user = await userCheck(walletAddress, '18d52805-a83f-41ba-8ae7-18ee21ef3ebc', stepCount)
-		if (user instanceof Error) {
+		console.log('walletAddress', walletaddress)
+		console.log('deviceId', deviceid)
+		console.log('stepCount', stepcount)
+		const tokenToClaim = await userCheck(walletaddress, deviceid, stepcount)
+		if (tokenToClaim instanceof Error) {
 			return {
 				statusCode: 415,
 				body: JSON.stringify({
-					message: user.message,
+					message: tokenToClaim.message,
 				}),
 			}
 		}
 
-
 		const starton = new Starton()
-		const response = await starton.getClaim(walletAddress, stepCount)
+		const response = await starton.getClaim(walletaddress, tokenToClaim)
 
 		return {
 			statusCode: 200,
 			body: JSON.stringify({
 				// message: `Your wallet address is ${walletAddress} and number step is ${numberStep}`,
+				tokenToClaim,
 				message: response,
 			}),
 		}
 	} catch (error) {
 		// console.error(error)
 		return {
-			statusCode: 415,
+			statusCode: 499,
 			body: JSON.stringify({
 				message: error,
 			}),

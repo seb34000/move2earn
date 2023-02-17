@@ -18,11 +18,17 @@ module.exports = {
 	plugins: ['prettier', 'import', 'react', 'react-hooks'],
 	settings: {
 		'import/ignore': ['react-native'],
+		'import/no-unresolved': 'off',
+		'import/resolver': {
+			node: {
+				path: ['src'],
+			},
+		},
 	},
 	overrides: [
 		{
 			parser: '@typescript-eslint/parser',
-			files: ['*.ts', '*.tsx'], // Your TypeScript files extension
+			files: ['*.ts', '*.tsx', '*.d.tsx'], // Your TypeScript files extension
 			// As mentioned in the comments, you should extend TypeScript plugins here,
 			// instead of extending them outside the `overrides`.
 			// If you don't want to extend any rules, you don't need an `extends` attribute.
@@ -55,6 +61,7 @@ module.exports = {
 		'comma-dangle': ['error', 'always-multiline'],
 		'quote-props': ['error', 'as-needed'],
 		'no-unused-vars': 'off',
+		'no-import-unresolved': 'off',
 		'import/order': [
 			'error',
 			{

@@ -40,7 +40,7 @@ class Starton {
 				return res.data
 			})
 			.catch((error) => {
-				console.error('error')
+				// console.error('error')
 				console.error(error.response)
 				return error
 			})

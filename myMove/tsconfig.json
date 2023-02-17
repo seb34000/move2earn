@@ -9,18 +9,19 @@
     "outDir": ".build",
     "moduleResolution": "node",
     "rootDir": "./",
-		"lib": ["dom", "dom.iterable", "esnext"],
-		"skipLibCheck": true,
-		"strict": true,
-		"forceConsistentCasingInFileNames": true,
-		"noEmit": true,
-		"esModuleInterop": true,
-		"module": "ES2022",
-		"resolveJsonModule": true,
-		"isolatedModules": true,
-		"incremental": true,
-		"baseUrl": "src/"
-	},
-	"include": ["**/*.ts", "**/*.tsx"],
-	"exclude": ["node_modules", "../typescript-http-api-starton-my-move"]
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "ES2022",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "incremental": true,
+    "baseUrl": "src/",
+    "typeRoots": ["./node_modules/@types", "./src/@types"]
+  },
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "../typescript-http-api-starton-my-move"]
 }

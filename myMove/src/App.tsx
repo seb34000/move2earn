@@ -7,6 +7,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { SafeAreaView, ActivityIndicator } from 'react-native'
 
+import { getUniqueId } from 'react-native-device-info'
 import { Main } from './view/Main'
 
 import { HKInit } from './lib/healthkit/init'
@@ -19,11 +20,18 @@ function App(): JSX.Element {
 	const [HKauth, setHKauth] = useState<boolean>(false)
 	const [HKstep, setHKstep] = useState<number>(-1)
 
+	const [deviceID, setDeviceID] = useState<string>('')
+
 	const [address, setAddress] = useState<string>('')
 
 	useEffect(() => {
 		HKInit(setHKauth)
 		HKgetStepFromToday(setHKstep)
+		if (deviceID === '') {
+			getUniqueId()
+				.then((id) => setDeviceID(id))
+				.catch((err) => console.log(err))
+		}
 	}, [])
 
 	const getStep = useCallback(() => {
@@ -40,7 +48,7 @@ function App(): JSX.Element {
 			}}
 		>
 			{HKauth === true ? (
-				<Main getStep={getStep} step={HKstep} setAddress={setAddress} address={address} />
+				<Main getStep={getStep} step={HKstep} setAddress={setAddress} address={address} deviceId={deviceID} />
 			) : (
 				<ActivityIndicator size="large" color="#0000ff" />
 			)}

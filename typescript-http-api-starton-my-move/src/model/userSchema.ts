@@ -7,7 +7,7 @@
 import mongoose, { Schema } from 'mongoose'
 import validator from 'validator'
 
-import { typeUser, typeDailyToken } from './type'
+import { typeUser, typeDailyToken } from '../interface/typeDB'
 
 const userSchema: Schema<typeUser> = new mongoose.Schema({
 	address: {
@@ -37,7 +37,7 @@ const userSchema: Schema<typeUser> = new mongoose.Schema({
 		required: true,
 		validate: {
 			validator: (dailyToken: typeDailyToken) => {
-				return validator.isISO8601(dailyToken.date) && validator.isInt(dailyToken.token.toString())
+				return validator.isISO8601(dailyToken.date) && validator.isInt(dailyToken.tokenClaim.toString())
 			},
 		},
 	},

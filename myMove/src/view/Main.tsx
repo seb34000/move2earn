@@ -8,6 +8,8 @@ import React from 'react'
 
 import { StyleSheet, View } from 'react-native'
 
+import api from '../lib/api/api'
+
 import Title from '../component/title/Title'
 import { Input } from '../component/input/Input'
 import Button from '../component/button/Button'
@@ -21,12 +23,39 @@ interface MainViewProps {
 	step: number
 	setAddress: (address: string) => void
 	address: string
+	deviceId: string
 }
 
 export function Main(props: MainViewProps): JSX.Element {
 	const onChangeText = (text: string) => {
 		checkAddress(text)
 		props.setAddress(text)
+	}
+
+	const claim = async () => {
+		if (props.step < 1000) {
+			alert({
+				title: 'Claim Token',
+				message: 'You need to walk at least 1000 steps to claim your token',
+				buttons: [{ text: 'OK', onPress: () => console.log('OK'), style: 'cancel' }],
+			})
+		} else {
+			await api.claim(props.address, props.deviceId, props.step).then((res) => {
+				if (res.status === 200) {
+					alert({
+						title: 'Claim Token',
+						message: 'Your token has been claimed',
+						buttons: [{ text: 'OK', onPress: () => console.log('OK'), style: 'cancel' }],
+					})
+				} else {
+					alert({
+						title: 'Claim Token',
+						message: 'An error occured',
+						buttons: [{ text: 'OK', onPress: () => console.log('OK'), style: 'cancel' }],
+					})
+				}
+			})
+		}
 	}
 
 	return (
@@ -47,7 +76,7 @@ export function Main(props: MainViewProps): JSX.Element {
 							title: 'Claim Token',
 							message: 'This is your number of token eligible to claim for today',
 							buttons: [
-								{ text: 'Claim', onPress: () => console.log('Claimed'), style: 'cancel' },
+								{ text: 'Claim', onPress: () => claim(), style: 'cancel' },
 								{ text: 'Cancel', onPress: () => console.log('Cancel'), style: 'destructive' },
 							],
 						})

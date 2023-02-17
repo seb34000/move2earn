@@ -6,7 +6,7 @@
 
 export interface typeDailyToken {
 	date: string
-	token: number
+	tokenClaim: number
 }
 
 export interface typeUser {

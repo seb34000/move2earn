@@ -6,12 +6,12 @@
 
 import dbConnectAndExec from '../database/db'
 import userModel from '../model/userModel'
-import { typeDailyToken } from '../model/type'
+import { typeDailyToken } from '../interface/typeDB'
 
 async function createUser(address: string, deviceId: string, token: number) {
 	const dailyToken: typeDailyToken = {
 		date: new Date().toISOString(),
-		token: token,
+		tokenClaim: token,
 	}
 
 	const user = new userModel({
@@ -27,8 +27,8 @@ async function createUser(address: string, deviceId: string, token: number) {
 	}
 
 	try {
-		await dbConnectAndExec(() => user.save())
-		return 'User created'
+		const res = await dbConnectAndExec(() => user.save())
+		return res
 	} catch (err: any) {
 		return Error(err)
 	}
