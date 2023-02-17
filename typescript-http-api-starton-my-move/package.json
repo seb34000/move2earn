@@ -22,7 +22,7 @@
         "serverless": "^3.21.0",
         "serverless-dotenv-plugin": "^4.0.2",
         "serverless-middleware": "^3.1.0",
-        "serverless-offline": "^9.3.1",
+        "serverless-offline": "^12.0.4",
         "serverless-plugin-typescript": "^2.1.2",
         "typescript": "4.7.4"
     },
