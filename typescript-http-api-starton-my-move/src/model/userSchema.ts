@@ -9,6 +9,11 @@ import validator from 'validator'
 
 import { typeUser, typeDailyToken } from '../interface/typeDB'
 
+/*
+|--------------------------------------------------------------------------
+| User Schema (Mongoose)
+|--------------------------------------------------------------------------
+*/
 const userSchema: Schema<typeUser> = new mongoose.Schema({
 	address: {
 		type: String,

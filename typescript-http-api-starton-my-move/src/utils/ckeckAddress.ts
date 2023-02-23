@@ -6,6 +6,11 @@
 
 import validator from 'validator'
 
+/*
+|--------------------------------------------------------------------------
+| function to check if a string is a valid Ethereum address
+|--------------------------------------------------------------------------
+*/
 export const isValidAddress = (address: string) => {
 	if (validator.isEthereumAddress(address)) {
 		return true

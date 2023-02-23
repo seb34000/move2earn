@@ -10,14 +10,14 @@ import Starton from './lib/Starton'
 
 import userCheck from './utils/userCheck'
 
+/*
+|--------------------------------------------------------------------------
+| Lambda Handler (AWS)
+|--------------------------------------------------------------------------
+*/
 export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
 	try {
-		console.log(event.headers)
 		const { walletaddress, deviceid, stepcount } = JSON.parse(JSON.stringify(event.headers))
-		// const user = await userCheck(walletAddress, 'd2c6a5b9-245c-4895-8b84-3d84cdb6819f', stepCount)
-		console.log('walletAddress', walletaddress)
-		console.log('deviceId', deviceid)
-		console.log('stepCount', stepcount)
 		const tokenToClaim = await userCheck(walletaddress, deviceid, stepcount)
 		if (tokenToClaim instanceof Error) {
 			return {
@@ -27,24 +27,21 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 				}),
 			}
 		}
-
 		const starton = new Starton()
 		const response = await starton.getClaim(walletaddress, tokenToClaim)
 
 		return {
 			statusCode: 200,
 			body: JSON.stringify({
-				// message: `Your wallet address is ${walletAddress} and number step is ${numberStep}`,
 				tokenToClaim,
 				message: response,
 			}),
 		}
 	} catch (error) {
-		// console.error(error)
 		return {
 			statusCode: 499,
 			body: JSON.stringify({
-				message: error,
+				message: 'Your request is not valid, please check your parameters: walletaddress, deviceid, stepcount',
 			}),
 		}
 	}

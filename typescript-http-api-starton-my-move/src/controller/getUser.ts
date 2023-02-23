@@ -8,6 +8,11 @@ import dbConnectAndExec from '../database/db'
 
 import userModel from '../model/userModel'
 
+/*
+|--------------------------------------------------------------------------
+| Controller
+|--------------------------------------------------------------------------
+*/
 async function getUser(address: string, deviceId: string) {
 	try {
 		const res = await dbConnectAndExec(() => userModel.findOne({ address, deviceId }))

@@ -6,15 +6,19 @@
 
 import axios, { AxiosInstance } from 'axios'
 
-const STARTON_BASE_URL = process.env.STARTON_BASE_URL || 'https://api.starton.io'
-const STARTON_SIGNER_WALLET = process.env.STARTON_SIGNER_WALLET || 'no-signer-wallet'
-const STARTON_API_KEY = process.env.STARTON_API_KEY || 'no-api-key'
+import {
+	SMART_CONTRACT_ADDRESS,
+	SMART_CONTRACT_NETWORK,
+	STARTON_API_KEY,
+	STARTON_BASE_URL,
+	STARTON_SIGNER_WALLET,
+} from './const'
 
-const SMART_CONTRACT_NETWORK = process.env.SMART_CONTRACT_NETWORK || 'ropsten'
-const SMART_CONTRACT_ADDRESS = process.env.SMART_CONTRACT_ADDRESS || 'no-smart-contract-address'
-
-// const SMART_CONTRACT_OWNER = process.env.SMART_CONTRACT_OWNER || 'no-smart-contract-owner'
-
+/*
+|--------------------------------------------------------------------------
+| Gestions of Starton API calls
+|--------------------------------------------------------------------------
+*/
 class Starton {
 	private axiosInstance: AxiosInstance
 
@@ -31,7 +35,7 @@ class Starton {
 		const response = await this.axiosInstance
 			.post(`/v3/smart-contract/${SMART_CONTRACT_NETWORK}/${SMART_CONTRACT_ADDRESS}/call`, {
 				functionName: 'transfer(address,uint256)',
-				params: [walletAddress, numberToken.toString()],
+				params: [walletAddress, (numberToken * 1000000000000000 * 1000).toString()],
 				signerWallet: STARTON_SIGNER_WALLET,
 				speed: 'average',
 			})
@@ -40,8 +44,8 @@ class Starton {
 				return res.data
 			})
 			.catch((error) => {
-				// console.error('error')
-				console.error(error.response)
+				console.log(`Error Starton API call failed`)
+				console.log(JSON.stringify(error, null, 2))
 				return error
 			})
 		return response

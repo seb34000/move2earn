@@ -14,6 +14,11 @@ import { isValidAddress } from './ckeckAddress'
 import { getTokenFromStep } from './getTokenFromStep'
 import { isToday } from './isToday'
 
+/*
+|--------------------------------------------------------------------------
+| function to check user datas
+|--------------------------------------------------------------------------
+*/
 function checkUserDatas(userToCheck: typeUserCheck) {
 	const checkAddress = isValidAddress(userToCheck.address)
 	if (checkAddress instanceof Error) return checkAddress
@@ -24,6 +29,11 @@ function checkUserDatas(userToCheck: typeUserCheck) {
 	return true
 }
 
+/*
+|--------------------------------------------------------------------------
+| function to check user token
+|--------------------------------------------------------------------------
+*/
 function checkUserToken(user: typeUser, stepCount: number) {
 	if (isToday(user.dailyToken.date)) {
 		const tokenAlreadyClaim = user.dailyToken.tokenClaim
@@ -40,18 +50,24 @@ function checkUserToken(user: typeUser, stepCount: number) {
 	}
 }
 
+/*
+|--------------------------------------------------------------------------
+| function to check user
+|--------------------------------------------------------------------------
+*/
 async function userCheck(address: string, deviceId: string, stepCount: number) {
 	const userToCheck: typeUserCheck = { address, deviceId, stepCount }
 	const checkUserDatasRes = checkUserDatas(userToCheck)
-	if (checkUserDatasRes instanceof Error) return checkUserDatasRes
+	if (checkUserDatasRes instanceof Error) {
+		return checkUserDatasRes
+	}
 	//@ts-ignore
 	const user: typeUser | undefined = await getUser(userToCheck.address, userToCheck.deviceId)
 
-	console.log('userCheck', user)
+	// console.log('userCheck', user)
 	if (user) {
 		const tokenCanClaim = checkUserToken(user, stepCount)
 		if (tokenCanClaim === 0) return new Error('No token to claim')
-		console.log('userCheckRes', tokenCanClaim)
 		const res = await updateUser(user, tokenCanClaim)
 		console.log('userCheckResUPDATE', res)
 		return tokenCanClaim

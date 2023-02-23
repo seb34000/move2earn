@@ -6,6 +6,11 @@
 
 import validator from 'validator'
 
+/*
+|--------------------------------------------------------------------------
+| function to check if a string is a valid UUID
+|--------------------------------------------------------------------------
+*/
 export const isValidUUID = (uuid: string) => {
 	if (validator.isUUID(uuid)) {
 		return true
