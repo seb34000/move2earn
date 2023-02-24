@@ -1,15 +1,19 @@
 /*
 | Developed by Starton
-| Filename : checkAddress.ts
+| Filename : typeCustomAlert.ts
 | Author : Sebastien Phelip (sebastien@starton.io)
 */
 
+import { AlertButton } from 'react-native'
+
 /*
 |--------------------------------------------------------------------------
-| Function Check Address
+| Interface Componnent Custom Alert
 |--------------------------------------------------------------------------
 */
-export const checkAddress = (address: string) => {
-	const regex = /^(0x)?[0-9a-f]{40}$/i
-	return regex.test(address)
+export interface customAlertProps {
+	title: string
+	message: string
+	buttons?: AlertButton[]
+	options?: object
 }

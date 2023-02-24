@@ -61,10 +61,8 @@ async function userCheck(address: string, deviceId: string, stepCount: number) {
 	if (checkUserDatasRes instanceof Error) {
 		return checkUserDatasRes
 	}
-	//@ts-ignore
 	const user: typeUser | undefined = await getUser(userToCheck.address, userToCheck.deviceId)
 
-	// console.log('userCheck', user)
 	if (user) {
 		const tokenCanClaim = checkUserToken(user, stepCount)
 		if (tokenCanClaim === 0) return new Error('No token to claim')
@@ -72,7 +70,6 @@ async function userCheck(address: string, deviceId: string, stepCount: number) {
 		console.log('userCheckResUPDATE', res)
 		return tokenCanClaim
 	} else {
-		//@ts-ignore
 		const userCreate: typeUser | Error = await createUser(address, deviceId, 0)
 		if (userCreate instanceof Error) return userCreate
 		const tokenCanClaim = checkUserToken(userCreate, stepCount)

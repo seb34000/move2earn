@@ -1,42 +1,51 @@
 /*
 | Developed by Starton
-| Filename : Button.tsx
+| Filename : CView.tsx
 | Author : Sebastien Phelip (sebastien@starton.io)
 */
 
 import React from 'react'
 
-import { Pressable, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet, Text } from 'react-native'
 
 import { getColors } from '../../lib/utils/colors'
-import { customButtonProps } from './typeButton'
+import { customCViewProps } from './typeCView'
 
 /*
 |--------------------------------------------------------------------------
-| Component Button
+| Component CView
 |--------------------------------------------------------------------------
 */
-export default function Button({ title, onPress }: customButtonProps) {
-	const { background, pressed, text } = getColors().button
+export default function CView({ title }: customCViewProps) {
+	const { background, text } = getColors().view
 	return (
-		<Pressable
-			style={(_props) => [
+		<View
+			style={[
+				styles.wrapperCustom,
 				{
-					backgroundColor: _props.pressed ? pressed : background,
+					backgroundColor: background,
 					shadowColor: getColors().shadow,
 				},
-				styles.wrapperCustom,
 			]}
-			onPress={onPress}
 		>
-			<Text style={[{ color: text, textShadowColor: getColors().shadow }, styles.text]}>{title}</Text>
-		</Pressable>
+			<Text
+				style={[
+					styles.text,
+					{
+						color: text,
+						textShadowColor: getColors().shadow,
+					},
+				]}
+			>
+				{title}
+			</Text>
+		</View>
 	)
 }
 
 /*
 |--------------------------------------------------------------------------
-| Styles Button
+| Style CView
 |--------------------------------------------------------------------------
 */
 const styles = StyleSheet.create({
@@ -52,9 +61,10 @@ const styles = StyleSheet.create({
 		elevation: 3,
 		margin: 5,
 	},
+
 	text: {
 		fontSize: 16,
-		fontWeight: 'bold',
+		// fontWeight: 'bold',
 		textAlign: 'center',
 		textShadowOffset: {
 			width: 0,

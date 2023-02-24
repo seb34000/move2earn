@@ -8,6 +8,11 @@ import AppleHealthKit from 'react-native-health'
 
 import { HKpermission } from './permission'
 
+/*
+|--------------------------------------------------------------------------
+| Function Init Healthkit
+|--------------------------------------------------------------------------
+*/
 export const HKInit = (setResult: (is: boolean) => void) => {
 	try {
 		AppleHealthKit.initHealthKit(HKpermission, (err, results) => {

@@ -11,6 +11,11 @@ import { TextInput, View, StyleSheet } from 'react-native'
 import { getColors } from '../../lib/utils/colors'
 import { customInputProps } from './typeInput'
 
+/*
+|--------------------------------------------------------------------------
+| Component Input
+|--------------------------------------------------------------------------
+*/
 export const Input = React.forwardRef<TextInput, customInputProps>((props, ref) => {
 	const inputColor = getColors().input
 	return (
@@ -30,6 +35,11 @@ export const Input = React.forwardRef<TextInput, customInputProps>((props, ref) 
 	)
 })
 
+/*
+|--------------------------------------------------------------------------
+| Style Input
+|--------------------------------------------------------------------------
+*/
 const styles = StyleSheet.create({
 	wrapperCustom: {
 		paddingTop: 5,

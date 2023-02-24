@@ -1,8 +1,18 @@
+/*
+| Developed by Starton
+| Filename : api.ts
+| Author : Sebastien Phelip (sebastien@starton.io)
+*/
+
 import axios, { Axios } from 'axios'
 
-// eslint-disable-next-line import/no-unresolved
 import { API_URL, API_KEY } from '@env'
 
+/*
+|--------------------------------------------------------------------------
+| API Class - This class is used to make API calls to the backend
+|--------------------------------------------------------------------------
+*/
 class API {
 	private axios: Axios
 	constructor() {
@@ -17,7 +27,7 @@ class API {
 
 	public claim = async (address: string, deviceId: string, stepNumber: number) => {
 		const response = await this.axios
-			.get('', {
+			.get('/claim', {
 				headers: {
 					walletAddress: address,
 					deviceId: deviceId,
@@ -31,6 +41,28 @@ class API {
 			})
 			.catch((err) => {
 				console.log('claim error: ')
+				console.error(JSON.stringify(err.response, null, 2))
+				return err
+			})
+		return response.data
+	}
+
+	public eligibility = async (address: string, deviceId: string, stepNumber: number) => {
+		const response = await this.axios
+			.get('/eligibility', {
+				headers: {
+					walletAddress: address,
+					deviceId: deviceId,
+					stepCount: stepNumber,
+				},
+			})
+			.then((res) => {
+				console.log('eligibility response: ')
+				console.log(res)
+				return res
+			})
+			.catch((err) => {
+				console.log('eligibility error: ')
 				console.error(JSON.stringify(err.response, null, 2))
 				return err
 			})

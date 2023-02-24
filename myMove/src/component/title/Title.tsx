@@ -11,6 +11,11 @@ import { Text } from 'react-native'
 import { getColors } from '../../lib/utils/colors'
 import { customTitleProps } from './typeTitle'
 
+/*
+|--------------------------------------------------------------------------
+| Component Title
+|--------------------------------------------------------------------------
+*/
 export default function Title(props: customTitleProps) {
 	return (
 		<Text

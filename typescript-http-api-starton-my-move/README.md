@@ -131,12 +131,20 @@ provider:
 
 functions: # Define your functions here
     claim: # Name of your function
-        handler: src/claim.handler # Path to your function -> [src folder]/[file name].[function name]
+        handler: src/claim.handler # Path to your function -> [src folder]/[file name].[function name] this function is used to call the Smart Contract and claim your tokens
         events: # Define your events here
             - http: # Define your http event here
-                  path: / # Path of your API
+                  path: /claim # Path of your API
                   method: get # Method of your API
                   private: true # If you want to use an API Key
+
+    eligibility: # this fuction is used to get the number of tokens you can claim
+        handler: src/eligibility.handler
+        events:
+            - http:
+                  path: /eligibility
+                  method: get
+                  private: true
 
 plugins: # Define your plugins here
     - serverless-plugin-typescript # If you use typescript
@@ -589,13 +597,68 @@ export const handler = async (event: APIGatewayProxyEvent): Primise<APIGatewayPr
 }
 ```
 
-25. Now we can test our lambda function. To do that, launch the following command:
+25. Now create a new file into `src/` folder called this file `eligibility.ts` and edit it with the following code:
+```typescript
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
+
+import getUser from './controller/getUser'
+import { typeUser } from './interface/typeDB'
+import { getTokenFromStep } from './utils/getTokenFromStep'
+import { isToday } from './utils/isToday'
+
+export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+    try {
+        const { walletaddress, deviceid, setpcount } = JSON.parse(JSON.stringify(event.headers)) // Get the wallet address and the device id from the request headers
+
+        const user: typeUser | undefined = await getUser(walletaddress, deviceid) // Get the user from the database
+
+        if (user === undefined) { // If user doesn't claim token yet
+            const token = getTokenFromStep(setpcount) // Get the number of token the user can claim
+            return {
+                statusCode: 200,
+                body: JSON.stringify({
+                    message: token >= 30 ? 30 : token, // Send the number of token the user can claim (max 30)
+                }),
+            }
+        } else { // If user already claim token
+            if (isToday(user.dailyToken.data)) { // If the user already claim token today
+                const tokenAlreadyClaim = user.dailyToken.tokenClaim // Get the number of token the user already claimed today
+                if (tokenAlreadyClaim >= 30) { // If the user already claimed 30 token today
+                    return {
+                        statusCode: 200,
+                        body: JSON.stringify({
+                            message: 0, // Send 0 token
+                        }),
+                    }
+                } else { // If the user didn't claim 30 token today
+                    const token = getTokenFromStep(setpcount) - tokenAlreadyclaim // Get the number of token the user can claim - the number of token the user already claimed today
+                    if (token > 30 - tokenAlreadyClaim) {
+                        return {
+                            statusCode: 200,
+                            body: JSON.stringify({
+                                message: 30 - tokenAlreadyClaim, // Send the number of token the user can claim (max 30)
+                            }),
+                        }
+                    } else {
+                        return {
+                            statusCode: 200,
+                            body: JSON.stringify({
+                                message: token, // Send the number of token the user can claim
+                            }),
+                        }
+                    }
+                }
+            }
+        }
+```
+
+26. Now we can test our lambda function. To do that, launch the following command:
 ```bash
 serverless offline # if you have installed serverless offline
 serverless deploy # if you haven't installed serverless offline
 ```
 
-26. After the deployment, you will see the message with the url of your lambda function, and API Key to access it. Open postman and send a request to the lambda function with the following parameters in the headers:
+27. After the deployment, you will see the message with the url of your lambda function, and API Key to access it. Open postman and send a request to the lambda function with the following parameters in the headers:
 ```json
 {
     "walletaddress": "0x0", // your wallet address
@@ -604,4 +667,4 @@ serverless deploy # if you haven't installed serverless offline
 }
 ```
 
-27. If you want do more test you can reset the database if you go to the mongoDB atlas website ->  Database -> Collections -> users -> Click on the trash icon -> drop collection
+28. If you want do more test you can reset the database if you go to the mongoDB atlas website ->  Database -> Collections -> users -> Click on the trash icon -> drop collection

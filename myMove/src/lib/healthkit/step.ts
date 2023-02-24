@@ -6,11 +6,21 @@
 
 import AppleHealthKit, { HealthInputOptions } from 'react-native-health'
 
+/*
+|--------------------------------------------------------------------------
+| Options for Healthkit
+|--------------------------------------------------------------------------
+*/
 const HKoptions: HealthInputOptions = {
 	date: new Date().toISOString(),
 	includeManuallyAdded: true,
 }
 
+/*
+|--------------------------------------------------------------------------
+| Function Get Step Count from Today
+|--------------------------------------------------------------------------
+*/
 export const HKgetStepFromToday = (setResult: (res: number) => void) => {
 	try {
 		AppleHealthKit.getStepCount(HKoptions, (err, results) => {

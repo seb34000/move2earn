@@ -4,15 +4,14 @@
 | Author : Sebastien Phelip (sebastien@starton.io)
 */
 
-import { Alert, AlertButton } from 'react-native'
+import { Alert } from 'react-native'
+import { customAlertProps } from '../../types/typeCustomAlert'
 
-interface customAlertProps {
-	title: string
-	message: string
-	buttons?: AlertButton[]
-	options?: object
-}
-
+/*
+|--------------------------------------------------------------------------
+| Custom Alert - This function is used to display a custom alert
+|--------------------------------------------------------------------------
+*/
 export const alert = (props: customAlertProps) => {
 	Alert.alert(props.title, props.message, props.buttons, props.options || {})
 }

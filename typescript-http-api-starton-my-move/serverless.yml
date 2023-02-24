@@ -1,7 +1,7 @@
 org: seb34z
 app: typescript-http-api-starton-my-move
 service: typescript-http-api-starton-my-move
-frameworkVersion: "3"
+frameworkVersion: '3'
 
 provider:
     name: aws
@@ -16,7 +16,15 @@ functions:
         handler: src/claim.handler
         events:
             - http:
-                  path: /
+                  path: /claim
+                  method: get
+                  private: true
+
+    eligibility:
+        handler: src/eligibility.handler
+        events:
+            - http:
+                  path: /eligibility
                   method: get
                   private: true
 

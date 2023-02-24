@@ -1,15 +1,18 @@
 /*
 | Developed by Starton
-| Filename : checkAddress.ts
+| Filename : typeMainView.ts
 | Author : Sebastien Phelip (sebastien@starton.io)
 */
 
 /*
 |--------------------------------------------------------------------------
-| Function Check Address
+| Interface Main View 
 |--------------------------------------------------------------------------
 */
-export const checkAddress = (address: string) => {
-	const regex = /^(0x)?[0-9a-f]{40}$/i
-	return regex.test(address)
+export interface MainViewProps {
+	getStep: () => void
+	step: number
+	setAddress: (address: string) => void
+	address: string
+	deviceId: string
 }

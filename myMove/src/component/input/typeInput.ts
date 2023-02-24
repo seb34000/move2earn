@@ -6,6 +6,11 @@
 
 import { ReactNode } from 'react'
 
+/*
+|--------------------------------------------------------------------------
+| Interface Componnent Input
+|--------------------------------------------------------------------------
+*/
 export interface customInputProps {
 	placeholder: string
 	onChangeText: (text: string) => void
