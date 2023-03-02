@@ -1,7 +1,7 @@
 # Move2Earn App - by Starton
 
 ## Before you start
- - [Complete API Move2earn tutorial](https://github.com/seb34000/move2earn/blob/main/my-move-api/README.md)
+ - [Complete API Move2earn tutorial](https://github.com/seb34000/move2earn/blob/main/typescript-http-api-starton-my-move/README.md)
 
 ## Launching the app
 ### Install dependencies
@@ -345,11 +345,11 @@ const styles = StyleSheet.create({
 })
 ```
 
-- Now create a new file called `view.tsx` in the `src/components/view.tsx` folder and add the following code: 
+- Now create a new file called `CView.tsx` in the `src/components/CView.tsx` folder and add the following code: 
   
 ```javascript
 /*
-  [./src/components/view.tsx]
+  [./src/components/CView.tsx]
   We use this file to component
   for the view of the app
 */
@@ -477,3 +477,256 @@ class API {
 
 export default new API() // We export the api instance
 ```
+
+- This step is not mandatory, but it's more beautiful. You need to install this library to use SVG in react-native [see here](https://github.com/software-mansion/react-native-svg) Create a new file called `WalletLogo.tsx` in the `./src/lib/logo` folder and add the following code: 
+
+```typescript
+/* 
+	[./src/lib/logo/WalletLogo.tsx]
+  	We use this file to create the wallet logo
+*/
+
+import * as React from 'react'
+import Svg, { SvgProps, Path } from 'react-native-svg'
+
+const WalletLogo = (props: SvgProps) => (
+	<Svg
+		height={24}
+		width={24}
+		//@ts-ignore
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='-256 -256 1024 1024'
+		xmlSpace='preserve'
+		stroke='#000'
+		strokeWidth={0.005}
+		{...props}
+	>
+		<Path d='M490.442 286.341V120.395c0-22.288-18.132-40.421-40.421-40.421h-35.49L398.97 37.087c-3.319-9.147-10.507-16.167-19.721-19.259-9.202-3.088-19.15-1.829-27.293 3.454l-36.39 23.597-2.827-7.792c-3.319-9.147-10.507-16.167-19.721-19.259-9.202-3.088-19.149-1.829-27.293 3.454L246.66 33.644a8.084 8.084 0 0 0 8.798 13.565l19.065-12.362a15.403 15.403 0 0 1 13.353-1.691c4.514 1.514 8.037 4.957 9.666 9.446l4.102 11.306-123.487 80.078H121.64l106.421-69.01a8.084 8.084 0 1 0-8.798-13.565l-44.148 28.631a8.022 8.022 0 0 0-1.035-.066H61.979C27.803 79.975 0 107.777 0 141.952v302.68c0 28.232 22.969 51.2 51.2 51.2h388.042c28.231 0 51.2-22.968 51.2-51.199v-32.876a8.083 8.083 0 0 0-8.084-8.084 8.084 8.084 0 0 0-8.084 8.084v32.876c0 19.316-15.715 35.032-35.032 35.032H91.621V239.292a8.084 8.084 0 0 0-16.168 0v240.372H51.2c-19.317 0-35.032-15.715-35.032-35.032v-260.74c11.344 12.451 27.68 20.274 45.81 20.274H450.02a40.218 40.218 0 0 0 24.253-8.103v89.157h-153.6c-28.231 0-51.2 22.968-51.2 51.199v.189c0 28.231 22.969 51.199 51.2 51.199h161.684c16.344 0 29.642-13.297 29.642-29.642v-43.303c.001-13.543-9.129-24.994-21.557-28.521zM450.021 96.142c13.372 0 24.253 10.879 24.253 24.253v13.591H434.13l-13.731-37.844h29.622zm0 91.856H61.979c-25.26 0-45.81-20.55-45.81-45.809v-.236c0-25.259 20.55-45.809 45.81-45.809h88.304l-58.359 37.844H72.758a8.084 8.084 0 0 0-8.084 8.084 8.083 8.083 0 0 0 8.084 8.084h269.474a8.084 8.084 0 0 0 8.084-8.084 8.083 8.083 0 0 0-8.084-8.084h-134.36L360.754 34.85a15.402 15.402 0 0 1 13.353-1.691c4.514 1.514 8.037 4.957 9.665 9.446l33.158 91.384h-42.36a8.084 8.084 0 0 0-8.084 8.084 8.083 8.083 0 0 0 8.084 8.084h53.707c.126.003.251.003.376 0h45.621v13.591c0 13.371-10.881 24.25-24.253 24.25zm45.811 170.168c0 7.429-6.044 13.474-13.474 13.474H320.674c-19.317 0-35.032-15.715-35.032-35.031v-.189c0-19.316 15.715-35.032 35.032-35.032h161.761c7.393.042 13.397 6.07 13.397 13.474v43.304z' />
+		<Path d='M326.063 312.227c-13.372 0-24.253 10.895-24.253 24.287s10.88 24.287 24.253 24.287 24.253-10.894 24.253-24.287-10.88-24.287-24.253-24.287zm0 32.407c-4.458 0-8.084-3.642-8.084-8.12s3.626-8.12 8.084-8.12 8.084 3.642 8.084 8.12-3.626 8.12-8.084 8.12z' />
+	</Svg>
+)
+
+export default WalletLogo
+```
+
+- Now we create a little function to check if ethereum address is valid or not. Create a new file `checkAddress.ts` in `src/lib/utils` folder and paste the following code:
+
+```javascript
+/*
+	[./src/lib/utils/checkAddress.ts]
+	We use this function to check if ethereum address is valid or not
+*/
+
+export const checkAddress = (address: string) => {
+	const regex = /^(0x)?[0-9a-f]{40}$/i
+	return regex.test(address)
+}
+```
+
+- It's not mandatory, but we create an encapsulation of the `alert` function, we do this to avoid repeating the same code. Create a new file `alert.ts` in `src/lib/utils` folder and paste the following code:
+
+```javascript
+/*
+	[./src/lib/utils/alert.ts]
+	We use this function to encapsulate the alert function
+*/
+import { Alert } from 'react-native'
+
+interface customAlertProps {
+	title: string
+	message: string
+	buttons?: AlertButton[]
+	options?: object
+}
+
+export const alert = (props: customAlertProps) => {
+	Alert.alert(props.title, props.message, props.buttons, props.options || {})
+}
+```
+
+- Now we create a MainView component, this component will be the main view of our application. Create a new file `Main.tsx` in `src/view` folder and paste the following code:
+
+```javascript
+/*
+	[./src/view/Main.tsx]
+	This is the main view of our application
+*/
+import React from 'react'
+
+import { StyleSheet, View } from 'react-native'
+
+import api from '../lib/api/api'
+import WalletLogo from '../lib/logo/WalletLogo'
+import { checkAddress } from '../lib/utils/checkAddress'
+import { alert } from '../lib/utils/alert'
+
+import CView from '../component/view/CView'
+import Title from '../component/title/Title'
+import { Input } from '../component/input/Input'
+import Button from '../component/button/Button'
+
+interface MainViewProps {
+	getStep: () => void
+	step: number
+	setAddress: (address: string) => void
+	address: string
+	deviceId: string
+}
+
+export function Main(props: MainViewProps): JSX.Element {
+	const [token, setToken] = React.useState<number>(0) // State to store the token
+
+	const onChangeText = (text: string) => { // Function call when the user type in the input
+		props.setAddress(text)
+	}
+
+	const onClickGetStep = async () => { // Function call when the user click on the button
+		props.getStep() // We call the getStep function from the parent component
+		if (checkAddress(props.address)) { // We check if the address is valid
+			const token = await api.eligibility(props.address, props.deviceId, props.step) // We call the eligibility function from the api to get the token from the server
+			setToken(token) // We set the token state
+		} else {
+			setToken(props.step / 1000) // We set the token state
+		}
+	}
+
+	const claim = async () => { // Function call when the user click on the claim button
+		if (!checkAddress(props.address)) { // We check if the address is valid
+			alert({
+				title: 'Error',
+				message: 'Invalid address',
+				buttons: [{ text: 'OK', onPress: () => console.log('OK'), style: 'cancel' }],
+			})
+			return
+		}
+		if (props.step < 1000) { // We check if the user walk at least 1000 steps
+			alert({
+				title: 'Claim Token',
+				message: 'You need to walk at least 1000 steps to claim your token',
+				buttons: [{ text: 'OK', onPress: () => console.log('OK'), style: 'cancel' }],
+			})
+		} else { // We call the claim function from the api to claim the token
+			await api.claim(props.address, props.deviceId, props.step).then((res) => {
+				if (res.status === 200) { // If the status is 200, we show a success message
+					alert({
+						title: 'Claim Token',
+						message: 'Your token has been claimed',
+						buttons: [{ text: 'OK', onPress: () => console.log('OK'), style: 'cancel' }],
+					})
+				} else { // If the status is not 200, we show an error message
+					alert({
+						title: 'Claim Token',
+						message: 'An error occured',
+						buttons: [{ text: 'OK', onPress: () => console.log('OK'), style: 'cancel' }],
+					})
+				}
+			})
+		}
+	}
+
+	return (
+		<View style={styles.wrapper}>
+			<Title title='Welcome to my move' />
+			<Button title='Get step for today' onPress={onClickGetStep} />
+			<CView title={props.step.toString() + " today's step"} />
+			<CView title={token.toPrecision(1).toString() + ' token eligible to claim'} />
+			<Input
+				placeholder='Your wallet address'
+				onChangeText={onChangeText}
+				value={props.address}
+				icon={<WalletLogo />}
+			/>
+			<Button title='Claim token' onPress={claim} />
+		</View>
+	)
+}
+
+const styles = StyleSheet.create({
+	wrapper: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+		width: '100%',
+	},
+})
+```
+
+- Now we need to use the `react-native-device-info` library to get the device id. [See the documentation to install](https://github.com/react-native-device-info/react-native-device-info)
+
+- Now we can edit the `App.tsx` file to use our new component. Edit the `App.tsx` file and paste the following code:
+
+```javascript
+/*
+	[./src/App.tsx]
+	This is the main component of our application
+*/
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { SafeAreaView, ActivityIndicator, ScrollView, KeyboardAvoidingView } from 'react-native'
+
+import { getUniqueId } from 'react-native-device-info'
+
+import { Main } from './view/Main'
+
+import { HKInit } from './lib/healthkit/init'
+import { HKgetStepFromToday } from './lib/healthkit/step'
+import { getColors } from './lib/utils/colors'
+
+function App(): JSX.Element {
+	const colors = getColors() // We get the colors from the getColors function to use Dark Mode or Light Mode
+
+	const [HKauth, setHKauth] = useState<boolean>(false) // State to store the healthkit authorization
+	const [HKstep, setHKstep] = useState<number>(-1) // State to store the healthkit step
+
+	const [deviceID, setDeviceID] = useState<string>('') // State to store the device id
+
+	const [address, setAddress] = useState<string>('') // State to store the wallet address
+
+	useEffect(() => { // This useEffect will be call when the component is mounted
+		HKInit(setHKauth) // We call the HKInit function to initialize the healthkit
+	}, [])
+
+	useEffect(() => { // This useEffect will be call when the HKauth state change or the deviceID state change
+		if (HKauth === true) {
+			HKgetStepFromToday(setHKstep)
+			if (deviceID === '') {
+				getUniqueId()
+					.then((id) => setDeviceID(id))
+					.catch((err) => console.log(err))
+			}
+		}
+	}, [HKauth, deviceID])
+
+	const getStep = useCallback(() => { // This function will be call when the user click on the button to get the step
+		HKgetStepFromToday(setHKstep)
+	}, [])
+
+	const renderMain = useMemo(() => { // This function is used to render the Main component
+		return HKauth ? (
+			<Main getStep={getStep} step={HKstep} setAddress={setAddress} address={address} deviceId={deviceID} />
+		) : (
+			<ActivityIndicator size='large' color='#0000ff' />
+		)
+	}, [HKauth, HKstep, getStep, address, deviceID])
+
+	return ( // We return the SafeAreaView component with the ScrollView component to have a scrollable view
+		<SafeAreaView
+			style={{
+				backgroundColor: colors.background,
+				justifyContent: 'center',
+				alignItems: 'center',
+				flex: 1,
+			}}
+		>
+			<ScrollView style={{ height: '100%', width: '100%' }} stickyHeaderIndices={[0]}>
+				<KeyboardAvoidingView
+					style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}
+					behavior='padding'
+				>
+					{renderMain} 
+				</KeyboardAvoidingView>
+			</ScrollView>
+		</SafeAreaView>
+	)
+
+}
+
