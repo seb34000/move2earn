@@ -18,13 +18,13 @@
 
 ## Tutorial
 ### Setup the project
-- [Complete API Move2earn tutorial](https://github.com/seb34000/move2earn/blob/main/my-move-api/README.md)
-
+ - [Complete API Move2earn tutorial](https://github.com/seb34000/move2earn/blob/main/typescript-http-api-starton-my-move/README.md)
+ 
 - [Create a new react native project without expo in this exemple we use typescipt but it's not mandatory](https://reactnative.dev/docs/environment-setup)
 
 - [Install react native health](https://github.com/agencyenterprise/react-native-health)
 
-- [Install react native dotenv](
+- [Install react native dotenv](https://github.com/goatandsheep/react-native-dotenv)
 
 
 ### Let's code
