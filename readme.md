@@ -18,4 +18,4 @@ Move2Earn is a simple app that allows you to earn money (here crypto) by walking
 
 ## Create your own app
 
-[Tutorial App Move2earn](https://github.com/seb34000/move2earn/blob/main/typescript-http-api-starton-my-move/README.md)
+[Tutorial App Move2earn](https://github.com/seb34000/move2earn/blob/main/myMove/readme.md)
